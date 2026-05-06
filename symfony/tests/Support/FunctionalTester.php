@@ -27,4 +27,15 @@ class FunctionalTester extends \Codeception\Actor
     /**
      * Define custom actions here
      */
+
+    /*
+     * You can also access framework globals inside a test or access the dependency injection container 
+     * inside the Helper\Functional class
+     * 
+     *  function doSomethingWithMyService()
+     *  {
+     *      $service = $this->getModule('Symfony')->grabServiceFromContainer('myservice');
+     *      $service->doSomething();
+     *  }
+     */  
 }

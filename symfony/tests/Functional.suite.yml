@@ -4,12 +4,13 @@
 # Emulate web requests and make application process them
 
 actor: FunctionalTester
+error_level: E_ALL & ~E_STRICT & ~E_DEPRECATED
 modules:
     enabled:
         - Asserts
         - Symfony:
-              app_path: 'src'
-              environment: 'test'
-#        - Doctrine:
-#              depends: Symfony
-#              cleanup: true
+            app_path: 'src'
+            environment: 'test'
+        - Doctrine:
+            depends: Symfony
+            cleanup: true

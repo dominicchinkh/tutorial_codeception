@@ -7,6 +7,9 @@
         "php": ">=8.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^3.2",
+        "doctrine/doctrine-migrations-bundle": "^4.0",
+        "doctrine/orm": "^3.6",
         "symfony/console": "8.0.*",
         "symfony/dotenv": "8.0.*",
         "symfony/flex": "^2",
@@ -72,6 +75,7 @@
     "require-dev": {
         "codeception/codeception": "^5.3",
         "codeception/module-asserts": "^3.3",
+        "codeception/module-doctrine": "^3.3",
         "codeception/module-phpbrowser": "^4.0",
         "codeception/module-symfony": "^3.9",
         "codeception/module-webdriver": "^4.0"
