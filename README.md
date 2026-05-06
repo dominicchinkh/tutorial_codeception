@@ -98,7 +98,8 @@ Here is an example of a simple unit test:
 class ExampleTest extends \Codeception\Test\Unit
 {
     public function testAddition()
-    {        $this->assertEquals(4, 2 + 2);
+    {        
+        $this->assertEquals(4, 2 + 2);
     }
 }
 ```
@@ -111,6 +112,16 @@ vendor/bin/codecept run
 ```
 
 This will execute all the tests in your project and provide a report of the results.
+
+```bash
+vendor/bin/codecept run
+```
+
+This will run the tests with detailed output, showing each step of the test execution and any debug information.
+
+```bash
+vendor/bin/codecept run --steps --debug
+```
 
 ## Conclusion
 Codeception is a powerful testing framework that allows you to write and run tests for your PHP applications. With its support for different types of testing and its easy-to-use syntax, it can help you ensure the quality and reliability of your code. For more information and advanced usage, refer to the [Codeception Documentation](https://codeception.com/docs/).

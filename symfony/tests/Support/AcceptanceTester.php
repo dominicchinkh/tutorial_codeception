@@ -24,6 +24,37 @@ class AcceptanceTester extends \Codeception\Actor
 {
     use _generated\AcceptanceTesterActions;
 
+    /*
+     * It is recommended to put widely used actions inside an Actor class. A good example is the 
+     * login action which would probably be actively involved in acceptance or functional testing.
+     *
+     * Codeception allows you to share cookies between tests, so a test user can stay logged in for 
+     * other tests.
+     *
+     * Note that session restoration only works for WebDriver modules.
+     * 
+     *   public function login($name, $password)
+     *   {
+     *       $I = $this;
+     * 
+     *       // if snapshot exists - skipping login
+     *       if ($I->loadSessionSnapshot('login')) {
+     *           return;
+     *       }
+     * 
+     *       // Logging in
+     *       $I->amOnPage('/login');
+     *       $I->submitForm('#loginForm', [
+     *           'login' => $name,
+     *           'password' => $password
+     *       ]);
+     *       $I->see($name, '.navbar');
+     * 
+     *       // Saving snapshot
+     *       $I->saveSessionSnapshot('login');
+     *   }
+     */
+
     /**
      * Define custom actions here
      */

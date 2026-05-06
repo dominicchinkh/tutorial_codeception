@@ -8,8 +8,10 @@ use App\Tests\Support\AcceptanceTester;
 
 final class SignupCest
 {
-    public function _before(AcceptanceTester $I): void
+    public function _before(AcceptanceTester $I, \Codeception\Scenario $scenario): void
     {
+        $modules = array_map('get_class', $scenario->current('modules'));
+
         // Code here will be executed before each test function.
         $I->amOnPage('/signup');
         $I->seeLink('Login');
@@ -22,7 +24,7 @@ final class SignupCest
         $I->seeCurrentUrlMatches('~^/s(\w+)p~');
         
         $slug = $I->grabFromCurrentUrl('~^/(\w+)~');
-        printf(" Slug value is: '%s'\n", $slug);
+        codecept_debug($slug);
 
         /*-------------------------------------
          * Actions for checking the page title
@@ -36,14 +38,29 @@ final class SignupCest
         $I->setCookie('auth', '123345');
         
         $cookie = $I->grabCookie('auth');
-        printf(" Cookie value is: '%s'\n", $cookie);
+        codecept_debug($cookie);
 
         $I->seeCookie('auth');
+
+        /*------
+         * Wait
+         * 
+         * While testing web application, you may need to wait for JavaScript events to occur. Due to its asynchronous nature, 
+         * complex JavaScript interactions are hard to test. That’s why you may need to use waiters, actions with wait prefix. 
+         * They can be used to specify what event you expect to occur on a page, before continuing the test.
+         */
+        if (in_array('Codeception\Module\WebDriver', $modules)) {
+            $I->waitForElement('#agree-terms', 5);
+            $I->waitForElementVisible('#agree-terms', 5);
+            $I->waitForText('I agree to the terms and conditions', 5);
+        }
     }
 
     // All `public` methods will be executed as tests.
-    public function signInSuccessfully(AcceptanceTester $I): void
+    public function signInSuccessfully(AcceptanceTester $I, \Codeception\Scenario $scenario): void
     {
+        $modules = array_map('get_class', $scenario->current('modules'));
+
         // We can use the label, input name or id to match the `username` field
 
         // To match fields by their labels, you should write a `for` attribute in the label tag.
@@ -72,13 +89,13 @@ final class SignupCest
         $I->seeInField('username', 'dominic@example.com');
 
         $username = $I->grabValueFrom('#username');
-        printf(" Username value is: '%s'\n", $username);
+        codecept_debug($username);
 
         // PasswordArgument: to fill in sensitive data (like passwords) and hide it in logs
         $I->fillField('password', new \Codeception\Step\Argument\PasswordArgument('password123')); 
 
         // $password = $I->grabValueFrom('#password');
-        // printf(" Password value is: '%s'\n", $password);
+        // codecept_debug($password);
 
         $I->selectOption('gender', 'male');
 
@@ -109,12 +126,32 @@ final class SignupCest
         $I->click('Sign Up');
         $I->expect('the form is submitted');
        
+        /*-----------------------------
+         * A/B Testing: tryToX methods
+         *
+         * We may try to hit the 'Close' button but if this action fails, we just continue the test
+         * 
+         *   $I->tryToClick('Close');
+         *        
+         *   if ($I->tryToSeeElement('Close')) {
+         *     $I->click('Close');
+         *   }
+         */
+
         /*------------
          * Assertions
          * 
          * check that 'Thank you for Signing Up!' is inside an element with 'thank-you-message' id.
          *   $I->see('Thank you for Signing Up!', '#thank-you-message');
          */
+        if (in_array('Codeception\Module\WebDriver', $modules)) {
+            $I->waitForText('Thank you for Signing Up!', 5);
+
+            // Wait for '#thank-you-message' and act
+            $I->performOn('#thank-you-message', function(\Codeception\Module\WebDriver $I) {
+                $I->see('Thank you for Signing Up!');
+            });
+        }
         $I->see('Thank you for Signing Up!');
 
         // We check this message is *not* on the page.
@@ -139,3 +176,10 @@ final class SignupCest
         $I->cantSeeElement('.error');
     }
 }
+
+/*-------
+ * Other
+ *
+ * https://codeception.com/docs/AcceptanceTests > Multi Session Testing
+ * 
+ */

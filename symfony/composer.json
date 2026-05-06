@@ -73,6 +73,7 @@
         "codeception/codeception": "^5.3",
         "codeception/module-asserts": "^3.3",
         "codeception/module-phpbrowser": "^4.0",
-        "codeception/module-symfony": "^3.9"
+        "codeception/module-symfony": "^3.9",
+        "codeception/module-webdriver": "^4.0"
     }
 }

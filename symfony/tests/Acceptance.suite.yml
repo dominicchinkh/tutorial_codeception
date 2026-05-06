@@ -6,8 +6,19 @@
 actor: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser:
-            url: http://localhost
+        # - PhpBrowser:
+        #     url: http://localhost
+        - WebDriver:
+            url: http://apache
+            browser: chrome
+
+extensions:
+    enabled:
+        # The images are saved in the tests/_output/ folder by default
+        - Codeception\Extension\Recorder:
+            delete_successful: false
+            delete_orphaned: true
+
 # Add Codeception\Step\Retry trait to AcceptanceTester to enable retries
 step_decorators:
     - Codeception\Step\ConditionalAssertion

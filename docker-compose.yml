@@ -46,6 +46,23 @@ services:
     networks:
       - znet
 
+  selenium:
+    image: selenium/standalone-chromium:latest
+    # Docker's default shared memory is usually 64MB, which is insufficient for modern browsers. 
+    # Setting this to 2gb is highly recommended for stability
+    shm_size: 2gb
+    ports:
+      # This is the default port for the Selenium Grid/Hub. Your automation scripts (Python, Java, etc.) 
+      # point here to send commands to the browser
+      - "4444:4444"
+      #  This is for noVNC, a web-based tool that lets you visually "see" the browser running inside the container
+      - "7900:7900"
+    environment:
+      # Allows VNC access without a password
+      - VNC_NO_PASSWORD=1
+    networks:
+      - znet
+
 volumes:
   postgres-data:
 
