@@ -18,6 +18,12 @@ vendor/bin/codecept bootstrap
 ```
 This will create the necessary directories and configuration files for your tests.
 
+When you change the configuration, the actor classes are rebuilt automatically. If the actor classes are not created or updated as you expect, try to generate them manually with the build command:
+
+```bash
+php vendor/bin/codecept build
+```
+
 ## Writing Tests
 You can create different types of tests using Codeception. For example, to create a unit test, you can run:
 

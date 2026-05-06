@@ -70,6 +70,9 @@
         }
     },
     "require-dev": {
-        "codeception/codeception": "^5.3"
+        "codeception/codeception": "^5.3",
+        "codeception/module-asserts": "^3.3",
+        "codeception/module-phpbrowser": "^4.0",
+        "codeception/module-symfony": "^3.9"
     }
 }
