@@ -113,7 +113,7 @@ final class SignupCest
         // $I->pause();
 
         // To inspect local variables pass them into interactive shell using an array:
-        
+
         // $I->pause(['user' => $user])
         // codecept_pause(['user' => $user]);
 

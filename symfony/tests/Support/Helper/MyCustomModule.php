@@ -59,7 +59,17 @@ class MyCustomModule extends Module
         $this->debug('Test result: ' . $test->getMetadata()->getName() . ' failed');
     }
 
-    // Standard module actions (methods you call in your tests)
+    /*
+     * Write a public method, then run the build command, and you will see the new function added into the 
+     * FunctionalTester class.
+     * 
+     * Modules may also contain methods that are exposed for use in helper classes. Those methods start with a 
+     * _ prefix and are not available in Actor classes, so can be accessed only from modules and extensions.
+     * 
+     * It’s recommended to prefix all your assertion actions with see or dontSee.
+     * 
+     */
+
     public function seeSpecialValue(string $value)
     {
         // Optional and mandatory parameters can be accessed through the $config property.

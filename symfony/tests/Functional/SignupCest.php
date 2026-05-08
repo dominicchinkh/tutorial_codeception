@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Functional;
 
 use App\Tests\Support\FunctionalTester;
+use Codeception\Attribute\Prepare;
 
 // Functional tests are almost the same as acceptance tests, with one major difference: Functional tests 
 // don’t require a web server.
@@ -45,6 +46,7 @@ final class SignupCest
     }
 
     // All `public` methods will be executed as tests.
+    #[Prepare('setupUser')]
     public function tryToTest(FunctionalTester $I): void
     {
         // We can use the label, input name or id to match the `username` field
@@ -152,5 +154,23 @@ final class SignupCest
          */
         $I->canSeeElement('.notice');
         $I->cantSeeElement('.error');
+    }
+
+    protected function setupUser(\Codeception\Module\Doctrine $doctrine, \Codeception\Module\Symfony $symfony)
+    {
+        // Option 1: Use the Codeception Doctrine module methods directly
+        $doctrine->haveInRepository(\App\Entity\User::class, [
+            'username' => 'dominic@example.com', 
+            'password' => password_hash('password123', PASSWORD_ARGON2ID), 
+            'hasAgreeTerms' => true]
+        );
+        
+        // Option 2: Get the raw Entity Manager from Doctrine module
+        /** @var \Doctrine\ORM\EntityManagerInterface $em */
+        $em = $doctrine->_getEntityManager();
+
+        // Option 3: Get the doctrine service directly from the Symfony module
+        /** @var \Doctrine\Persistence\ManagerRegistry $doctrineRegistry */
+        $doctrineRegistry = $symfony->grabService('doctrine');
     }
 }
