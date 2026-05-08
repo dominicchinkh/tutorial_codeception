@@ -24,6 +24,12 @@ When you change the configuration, the actor classes are rebuilt automatically. 
 php vendor/bin/codecept build
 ```
 
+Run the build command to ensure that the actor classes are up to date:
+
+```bash
+php vendor/bin/codecept build
+```
+
 ## Writing Tests
 You can create different types of tests using Codeception. 
 
