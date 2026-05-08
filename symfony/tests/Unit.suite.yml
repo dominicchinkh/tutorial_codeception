@@ -13,6 +13,6 @@ modules:
         #     password: 'password'
         - Doctrine:
             depends: Symfony
-        - \App\Tests\Support\Module\MyCustomModule:
+        - \App\Tests\Support\Helper\MyCustomModule:
             name: 'My Custom Module'
             value: "%DATABASE_URL%"

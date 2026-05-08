@@ -1,5 +1,5 @@
 <?php
-namespace App\Tests\Support\Module;
+namespace App\Tests\Support\Helper;
 
 use Codeception\Module;
 
