@@ -68,8 +68,20 @@ class EntityTest extends \Codeception\Test\Unit
 
         // https://codeception.com/docs/modules/Db
 
+        // Assessing other modules: Modules can interact with each other through the `getModule` method
+
+        // By using the getModule function, you get access to all of the public methods and properties of the requested module
+
+        // Modules may also contain methods that are exposed for use in helper classes. Those methods start with a _ prefix and 
+        // are not available in Actor classes, so can be accessed only from modules and extensions.
+
         // Get entity manager by accessing module
         $em = $this->getModule('Doctrine')->em;
+
+        // Run time configuration changes for modules can be done by calling the _reconfigure method of the module.
+        // $this->getModule('MyCustomModule')->_reconfigure(['value' => '42']);
+
+        // More about module and helper: https://codeception.com/docs/ModulesAndHelpers
 
         $user = new User();
         $user->setUsername('Miles');
@@ -87,5 +99,14 @@ class EntityTest extends \Codeception\Test\Unit
         // The Doctrine and Laravel modules will clean up the created data at the end of a test. 
         // This is done by wrapping each test in a transaction and rolling it back afterwards.
         $this->tester->seeInRepository(User::class, ['username' => 'Miles']);
+
+        //-----------------
+        // Use with caution: 
+        //
+        // These Github projects are not maintained anymore.
+        // 
+        // Specify (https://github.com/Codeception/Specify)
+        // Domain assertions (https://github.com/Codeception/DomainAssert)
+        // AspectMock (https://github.com/Codeception/AspectMock)
     }
 }

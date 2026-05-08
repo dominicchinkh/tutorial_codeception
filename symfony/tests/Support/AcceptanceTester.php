@@ -58,4 +58,13 @@ class AcceptanceTester extends \Codeception\Actor
     /**
      * Define custom actions here
      */
+
+    /* 
+     * It’s recommended to prefix all your assertion actions with see or dontSee
+     * 
+     *    function seeClassExist($class)
+     *    {
+     *        $this->assertTrue(class_exists($class));
+     *    }
+     */
 }

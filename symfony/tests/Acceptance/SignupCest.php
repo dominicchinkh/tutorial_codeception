@@ -102,6 +102,21 @@ final class SignupCest
         $I->checkOption('agree-terms');
         $I->seeCheckboxIsChecked('#agree-terms');
 
+        /*----------------------
+         * Interactive pause
+         *
+         * Interactive pause is launched only when --debug option is enabled
+         * > php vendor/bin/codecept run --debug
+         *
+         */  
+
+        // $I->pause();
+
+        // To inspect local variables pass them into interactive shell using an array:
+        
+        // $I->pause(['user' => $user])
+        // codecept_pause(['user' => $user]);
+
         /*------- 
          * Click
          * 
