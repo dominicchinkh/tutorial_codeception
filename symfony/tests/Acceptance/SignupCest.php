@@ -6,6 +6,15 @@ namespace App\Tests\Acceptance;
 
 use App\Tests\Support\AcceptanceTester;
 
+/*
+ * Following this approach will allow you to keep your tests clean, readable, stable and make them easy to maintain.
+ * 
+ * 1. Group common actions together and move them to an Actor class or StepObjects. 
+ * 2. Move CSS and XPath locators into PageObjects.
+ * 3. Write your custom actions and assertions in Helpers. 
+ * 4. Scenario-driven tests should not contain anything more complex than $I->doSomething commands. 
+ * 
+ */
 final class SignupCest
 {
     public function _before(AcceptanceTester $I, \Codeception\Scenario $scenario): void
@@ -195,6 +204,13 @@ final class SignupCest
     {
         $I->amOnPage('/signup');
         $signupPage->signUp('dominic@example.com', 'password123', 'male', true);
+        $I->see('Thank you for Signing Up!');
+    }
+
+    public function signUpSuccessfullyWithStepObject(AcceptanceTester $I, \App\Tests\Support\Step\Acceptance\Admin $adminSteps): void
+    {
+        $I->amOnPage('/signup');
+        $adminSteps->signUpAsAdmin();
         $I->see('Thank you for Signing Up!');
     }
 }
