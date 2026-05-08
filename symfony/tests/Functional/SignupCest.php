@@ -47,7 +47,7 @@ final class SignupCest
 
     // All `public` methods will be executed as tests.
     #[Prepare('setupUser')]
-    public function tryToTest(FunctionalTester $I): void
+    public function signUpSuccessfully(FunctionalTester $I): void
     {
         // We can use the label, input name or id to match the `username` field
 

@@ -57,7 +57,7 @@ final class SignupCest
     }
 
     // All `public` methods will be executed as tests.
-    public function signInSuccessfully(AcceptanceTester $I, \Codeception\Scenario $scenario): void
+    public function signUpSuccessfully(AcceptanceTester $I, \Codeception\Scenario $scenario): void
     {
         $modules = array_map('get_class', $scenario->current('modules'));
 
@@ -189,6 +189,13 @@ final class SignupCest
          */
         $I->canSeeElement('.notice');
         $I->cantSeeElement('.error');
+    }
+
+    public function signUpSuccessfullyWithPageObject(AcceptanceTester $I, \App\Tests\Support\Page\Acceptance\Signup $signupPage): void
+    {
+        $I->amOnPage('/signup');
+        $signupPage->signUp('dominic@example.com', 'password123', 'male', true);
+        $I->see('Thank you for Signing Up!');
     }
 }
 
