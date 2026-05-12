@@ -148,6 +148,27 @@ vendor/bin/codecept run Acceptance --env firefox
 vendor/bin/codecept run Acceptance --env chrome
 ```
 
+### BDD Testing
+Codeception also supports Behavior-Driven Development (BDD) testing using Gherkin syntax. You can create a feature file with scenarios and steps, and then implement the step definitions in your test classes.
+
+You can dry-run your Gherkin scenarios to check if all steps have corresponding definitions. This can be done with the following command:
+
+```bash
+vendor/bin/codecept dry-run Acceptance signup.feature
+```
+
+In order to run a specific Gherkin scenario, you can use the following command:
+
+```bash
+vendor/bin/codecept run Acceptance signup.feature
+```
+
+In order to list all Gherkin steps, you can use the following command:
+
+```bash
+vendor/bin/codecept gherkin:steps
+```
+
 ### Selenium grid
 To run selenium grid, you can use the following command:
 
