@@ -4,6 +4,16 @@ declare(strict_types=1);
 
 namespace App\Tests\Acceptance;
 
+use Codeception\Attribute\After;
+use Codeception\Attribute\Before;
+use Codeception\Attribute\DataProvider;
+use Codeception\Attribute\Depends;
+use Codeception\Attribute\Env;
+use Codeception\Attribute\Examples;
+use Codeception\Attribute\Group;
+use Codeception\Attribute\Skip;
+use Codeception\Scenario;
+
 use App\Tests\Support\AcceptanceTester;
 
 /*
@@ -66,6 +76,11 @@ final class SignupCest
     }
 
     // All `public` methods will be executed as tests.
+
+    // Set a group for this test
+    // You can run tests from this group using `php vendor/bin/codecept run acceptance --group user`
+
+    #[Group('user', 'account')] 
     public function signUpSuccessfully(AcceptanceTester $I, \Codeception\Scenario $scenario): void
     {
         $modules = array_map('get_class', $scenario->current('modules'));
@@ -200,18 +215,81 @@ final class SignupCest
         $I->cantSeeElement('.error');
     }
 
-    public function signUpSuccessfullyWithPageObject(AcceptanceTester $I, \App\Tests\Support\Page\Acceptance\Signup $signupPage): void
+    // If you want to execute the same test scenario with different data
+    #[Examples(name: 'dominic@example.com', password: 'password123')]
+    #[Examples(name: 'peter@example.com',   password: 'password456')]
+    public function signUpSuccessfullyWithPageObject(AcceptanceTester $I, \App\Tests\Support\Page\Acceptance\Signup $signupPage, \Codeception\Example $example): void
     {
         $I->amOnPage('/signup');
-        $signupPage->signUp('dominic@example.com', 'password123', 'male', true);
+        $signupPage->signUp($example['name'], $example['password'], 'male', true);
         $I->see('Thank you for Signing Up!');
     }
 
-    public function signUpSuccessfullyWithStepObject(AcceptanceTester $I, \App\Tests\Support\Step\Acceptance\Admin $adminSteps): void
+    // You can also use `DataProvider` to provide data for the test method. The method should return an array of arrays with the test data.
+    #[DataProvider('userProvider')]
+    public function signUpSuccessfullyWithStepObject(AcceptanceTester $I, \App\Tests\Support\Step\Acceptance\Admin $adminSteps, \Codeception\Example $example): void
     {
         $I->amOnPage('/signup');
         $adminSteps->signUpAsAdmin();
         $I->see('Thank you for Signing Up!');
+    }
+
+    // With the #[Depends] attribute, you can specify a test that should be passed before the current one
+    #[Depends('signUpSuccessfully')]
+    public function listPrice(AcceptanceTester $I): void
+    {
+    }
+
+    // This test will be executed in 'firefox' and 'chrome' environments
+    #[Env('chrome', 'firefox')]
+    public function showImage(AcceptanceTester $I): void
+    {
+    }
+
+    public function listTestMetadata(Scenario $scenario)
+    {
+        // list all metadata variables
+        codecept_debug($scenario->current());
+    }
+
+    // You can explain the reason to skip test in attribute
+    #[Skip('this one is not needed anymore')]
+    public function notAnImportantTest(AcceptanceTester $I, Scenario $scenario): void
+    {
+        // If you need to skip a test on a condition, inject Codeception\Scenario into the test
+        $shouldNotBeExecuted = true;
+
+        if ($shouldNotBeExecuted) {
+            $scenario->skip('This test is skipped on this condition');
+        }
+    }
+
+    #[Before('signupSuccessfully', 'signUpSuccessfullyWithPageObject', 'signUpSuccessfullyWithStepObject')]
+    private function checkUserNotExist() : void 
+    {
+    }
+
+    #[After('signupSuccessfully', 'signUpSuccessfullyWithPageObject', 'signUpSuccessfullyWithStepObject')]
+    private function checkUserExist() : void 
+    {
+    }
+
+    private function userProvider() : array
+    {
+        return [
+            ["name" => "john@example.com", "password" => "password123"],
+            ["name" => "david@example.com",   "password" => "password456"]
+        ];
+    }
+
+    public function _passed(AcceptanceTester $I)
+    {
+        // will be executed when test is successful
+    }
+
+    public function _failed(AcceptanceTester $I)
+    {
+        // will be executed on test failure
     }
 }
 

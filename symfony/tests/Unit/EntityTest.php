@@ -3,9 +3,11 @@
 
 namespace App\Tests\Unit;
 
-use App\Tests\Support\UnitTester;
+use Codeception\Attribute\Skip;
+
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Tests\Support\UnitTester;
 
 class EntityTest extends \Codeception\Test\Unit
 {
@@ -15,7 +17,6 @@ class EntityTest extends \Codeception\Test\Unit
     {
     }
 
-    // tests
     public function testUserEntity()
     {
         $user = new User();
@@ -108,5 +109,29 @@ class EntityTest extends \Codeception\Test\Unit
         // Specify (https://github.com/Codeception/Specify)
         // Domain assertions (https://github.com/Codeception/DomainAssert)
         // AspectMock (https://github.com/Codeception/AspectMock)
+    }
+
+    /**
+     * @param mixed $value
+     * @example [3.14159]
+     * @example ["a string"]
+     * @example [["this", "is", "an", "array"]]
+     * @example [{"associative": "array"}]
+     */
+    public function testExample($value)
+    {
+        $this->assertNotEmpty($value, "Expected a value");
+    }
+    
+    // You can explain the reason to skip test in attribute
+    #[Skip('this one is not needed anymore')]
+    public function notAnImportantTest(): void
+    {
+        // Unit tests can be skipped via the attribute or by using `markTestSkipped` method
+        $shouldNotBeExecuted = true;
+        
+        if ($shouldNotBeExecuted) {
+            $this->markTestSkipped();
+        }
     }
 }

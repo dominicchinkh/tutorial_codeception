@@ -12,6 +12,32 @@ modules:
             url: http://apache
             browser: chrome
 
+env:
+    # You can specify different browsers for different environments and run tests in specific environment using
+    #   `codecept run acceptance --env firefox`
+    #   `codecept run acceptance --env chrome`
+
+    # The WebDriver module will look for Selenium server on localhost:4444 by default, but you can specify a different 
+    # host and port if needed
+
+    # More info about WebDriver configuration: https://codeception.com/docs/modules/WebDriver
+
+    # Unfortunately, selenium does not support Safari, so you cannot run tests in Safari browser using WebDriver module.
+
+    chrome:
+         modules:
+            config:
+                WebDriver:
+                    browser: 'chrome'
+                    port: 4444
+
+    firefox:
+        modules:
+            config:
+                WebDriver:
+                    browser: 'firefox'
+                    port: 5555
+
 extensions:
     enabled:
         # The images are saved in the tests/_output/ folder by default

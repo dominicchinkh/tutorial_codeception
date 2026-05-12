@@ -120,7 +120,7 @@ vendor/bin/codecept run
 This will execute all the tests in your project and provide a report of the results.
 
 ```bash
-vendor/bin/codecept run
+vendor/bin/codecept run --steps
 ```
 
 This will run the tests with detailed output, showing each step of the test execution and any debug information.
@@ -134,6 +134,27 @@ Run only the Functional (or Unit, Acceptance) tests:
 ```bash
 vendor/bin/codecept run Functional
 ```
+
+In order to run a specific test method, you can use the following command:
+
+```bash
+vendor/bin/codecept run Functional ExampleCest:exampleTest
+```
+
+In order to run tests for a particular browser, you can use the `--env` option:
+
+```bash
+vendor/bin/codecept run Acceptance --env firefox
+vendor/bin/codecept run Acceptance --env chrome
+```
+
+### Selenium grid
+To run selenium grid, you can use the following command:
+
+```bash
+docker compose up
+```
+This will start the Selenium Grid and make the chrome selenium available at http://localhost:7900/ and the firefox selenium available at http://localhost:7800/
 
 ## Conclusion
 Codeception is a powerful testing framework that allows you to write and run tests for your PHP applications. With its support for different types of testing and its easy-to-use syntax, it can help you ensure the quality and reliability of your code. For more information and advanced usage, refer to the [Codeception Documentation](https://codeception.com/docs/).
