@@ -169,6 +169,12 @@ In order to list all Gherkin steps, you can use the following command:
 vendor/bin/codecept gherkin:steps
 ```
 
+We can define the BDD steps easily by executing `gherkin:snippets` command for the given suite
+
+```bash
+php vendor/bin/codecept gherkin:snippets Acceptance
+```
+
 ### Selenium grid
 To run selenium grid, you can use the following command:
 
