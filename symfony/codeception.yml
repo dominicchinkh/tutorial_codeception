@@ -17,3 +17,18 @@ settings:
     shuffle: true
     colors: true
     report_useless_tests: true
+coverage:
+    enabled: true
+    low_limit: 30
+    high_limit: 60
+    include:
+        - src/*
+    exclude:
+        - bin/*
+        - config/*
+        - migrations/*
+        - public/*
+        - templates/*
+        - tests/*
+        - var/*
+        - vendor/*

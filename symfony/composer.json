@@ -84,6 +84,7 @@
         "codeception/module-webdriver": "^4.0.5",
         "codeception/stub": "^4.3",
         "codeception/verify": "^3.4",
+        "phpunit/php-code-coverage": "^13.0",
         "symfony/maker-bundle": "^1.67"
     }
 }

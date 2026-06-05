@@ -41,6 +41,7 @@ final class CreateUserCest
         $I->seeResponseIsJson();
         
         $I->seeResponseContains('{"name":"davert","email":"davert@codeception.com"}');
+        $I->seeResponseContainsJson(["name" => "davert", "email" => "davert@codeception.com"]);
 
         // JSON contains name and email fields
 

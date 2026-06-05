@@ -165,6 +165,33 @@ vendor/bin/codecept run Acceptance --env firefox
 vendor/bin/codecept run Acceptance --env chrome
 ```
 
+### Coverage
+Codeception also supports code coverage analysis. You can generate a code coverage report by running your tests with the `--coverage` option:
+
+```bash
+vendor/bin/codecept run --coverage
+```
+
+This will generate a code coverage report in the `tests/_output/coverage` directory. You can open the `index.html` file in this directory to view the report in your browser.
+
+Note: install xdebug extension to get code coverage report. You can install xdebug using the following command for PHP 8.4:
+
+```bash
+sudo apt install php8.4-xdebug
+```
+
+Enable xdebug extension by adding the following line to your `php.ini` file:
+
+```ini
+zend_extension=xdebug
+```
+
+Check if xdebug is enabled by running the following command:
+
+```bash
+php -m | grep xdebug
+```
+
 ### BDD Testing
 Codeception also supports Behavior-Driven Development (BDD) testing using Gherkin syntax. You can create a feature file with scenarios and steps, and then implement the step definitions in your test classes.
 
