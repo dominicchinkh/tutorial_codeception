@@ -96,7 +96,7 @@ final class SignupCest
          * we can use the `submitForm` method:
          * 
          *   $I->submitForm(
-         *       '#signup-form', 
+         *       '#signup-form',
          *       [
          *           'user' => [
          *               'username' => 'dominic@example.com',
@@ -230,7 +230,8 @@ final class SignupCest
     public function signUpSuccessfullyWithStepObject(AcceptanceTester $I, \App\Tests\Support\Step\Acceptance\Admin $adminSteps, \Codeception\Example $example): void
     {
         $I->amOnPage('/signup');
-        $adminSteps->signUpAsAdmin();
+        // $adminSteps->signUpAsAdmin();
+        $adminSteps->signUp($example['username'], $example['password']);
         $I->see('Thank you for Signing Up!');
     }
 

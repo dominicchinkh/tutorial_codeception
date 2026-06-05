@@ -49,7 +49,7 @@ services:
     networks:
       - znet
 
-  selenium:
+  chromium:
     image: selenium/standalone-chromium:latest
     # Docker's default shared memory is usually 64MB, which is insufficient for modern browsers. 
     # Setting this to 2gb is highly recommended for stability

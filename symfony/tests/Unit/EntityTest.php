@@ -58,6 +58,14 @@ class EntityTest extends \Codeception\Test\Unit
             ['username' => 'john', 'password' => password_hash('password123', PASSWORD_ARGON2ID), 'hasAgreeTerms' => true]
         );
 
+        // $this->make(User::class, [...]): This creates a fake (stub/mock) instance of your User class.
+
+        // 'getUsername' => Expected::never(): This asserts that the getUsername() method must not be called anywhere in the code that follows. 
+        // If your code accidentally calls $user->getUsername(), the test will immediately fail.
+
+        // 'getPassword' => Expected::exactly(1): This asserts that the getPassword() method must be called exactly one time. If it is called 
+        // zero times, or more than once, the test will fail.
+
         $user = $this->make(User::class, [
             'getUsername' => \Codeception\Stub\Expected::never(),
             'getPassword' => \Codeception\Stub\Expected::exactly(1),
