@@ -23,4 +23,19 @@ class DefaultController extends AbstractController
     {
         return $this->render('signup_success.html.twig');
     }
+
+    // Test this API endpoint with
+    //   curl -X POST 'http://localhost/api/v1/users' -H "X-AUTH-TOKEN: token" -H "Content-Type: application/json" -d '{"name": "dom", "email": "dom@lesmills.net.au"}'
+
+    #[Route('/api/v1/users', name: 'app_create_user', methods: ['POST'])]
+    public function createUser(Request $request): Response
+    {
+        $payload = $request->toArray();
+        
+        $data = [
+            'name'  => $payload['name'] ?? null,
+            'email' => $payload['email'] ?? null,
+        ];
+        return $this->json($data);
+    }
 }

@@ -110,6 +110,23 @@ class ExampleTest extends \Codeception\Test\Unit
 }
 ```
 
+### API Tests
+API tests are used to test the endpoints of your API. They can be used to verify that your API is returning the correct responses and that it is functioning as expected.
+
+For example, to create an API suite, you can run:
+
+```bash
+vendor/bin/codecept generate:suite Api
+```
+
+This will create a new suite configuration file in the `tests` directory. You can then configure the API suite to use the REST module and set the base URL for your API.
+
+Create a new API test:
+
+```bash
+vendor/bin/codecept generate:cest Api ExampleCest
+```
+
 ### Running Tests
 You can run your tests using the following command:
 
