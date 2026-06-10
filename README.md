@@ -192,6 +192,14 @@ Check if xdebug is enabled by running the following command:
 php -m | grep xdebug
 ```
 
+To get code coverage report for acceptance tests, you can use the C3 module. You can install it using the following command:
+
+```bash
+composer require --dev codeception/c3
+```
+
+Refer to the [Codeception Documentation](https://codeception.com/docs/Codecoverage#Local-Server) for more information on how to set up and use the C3 module for code coverage in acceptance tests.
+
 ### BDD Testing
 Codeception also supports Behavior-Driven Development (BDD) testing using Gherkin syntax. You can create a feature file with scenarios and steps, and then implement the step definitions in your test classes.
 
